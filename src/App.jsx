@@ -11,11 +11,13 @@ import Books from './pages/books/Books'
 import EditBook from './pages/books/EditBook'
 import History from './pages/history/History'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 
 function App() {
 
-  console.log(import.meta.env.API_KEY)
+  //console.log(import.meta.env.API_KEY)
 
   return (
     <>
@@ -33,6 +35,7 @@ function App() {
         <Route path='/history' element={<History/>}></Route>
 
       </Routes>
+      <ToastContainer />
     </>
   )
 }
