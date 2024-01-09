@@ -28,7 +28,7 @@ function Header() {
         <Navbar.Brand href="/">
           <img
             className="logoImage"
-            src="/src/assets/imgs/logo.png"
+            src="https://firebasestorage.googleapis.com/v0/b/library-management-9c096.appspot.com/o/Logo%2Flogo.png?alt=media&token=3c135bfa-8d13-451f-b626-96a90b4e5f9c"
             alt="Logo"
           />{" "}
           Hamro Library
