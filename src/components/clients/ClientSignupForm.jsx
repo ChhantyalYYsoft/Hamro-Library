@@ -6,8 +6,9 @@ import { toast } from 'react-toastify'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth, db } from '../../firebase-config'
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
+import { useNavigate } from 'react-router-dom'
 
-function AdminSignUp() {
+function ClientSignupForm() {
 
     const inputs = [
         {
@@ -54,9 +55,9 @@ function AdminSignUp() {
             minLength: 6
         },
     ]
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        role: "admin"
+        role: "client"
     });
 
     const handleOnChange = (e) => {
@@ -70,7 +71,6 @@ function AdminSignUp() {
     const handleOnSubmit = async (e) => {
         e.preventDefault(); //it will stop page from refreshing
         // Validate the input
-        console.log(formData)
         const { password, confirmPassword, ...rest } = formData;
         const { email } = formData;
         if (password !== confirmPassword) {
@@ -88,8 +88,10 @@ function AdminSignUp() {
 
             // TODO: User this UID as a id anc create a collection in firestore with formData
             const userDoc = doc(db, "users", uid);
-            await setDoc(userDoc, rest);
+            await setDoc(userDoc, { ...rest, uid });
             toast.success("User Created!")
+            // Redirect to login page
+            navigate("/login")
         } catch (e) {
             console.log(e)
             if (e.message.includes('auth/email-already-in-use')) {
@@ -98,25 +100,13 @@ function AdminSignUp() {
                 toast.error(e.message)
             }
         }
-        // .then((authSnap) => {
-        //     // Signed up 
-        //     const user = authSnap.user;
-        //     console.log("User", user)
-        //     // ...
-        // })
-        // .catch((error) => {
-        //     const errorCode = error.code;
-        //     const errorMessage = error.message;
-        //     console.log(errorCode, errorMessage)
-        // });
     }
     return (
         <>
-            <BaseLayout>
                 {/* Anything inside BaseLayout will become a children */}
                 {/* children prop is pre-defined by react */}
                 <div className='p-3 border shadow rounded admin-form'>
-                    <h1>Register Admin</h1>
+                    <h1>Register</h1>
 
                     <Form onSubmit={handleOnSubmit}>
                         {inputs.map(input => {
@@ -128,9 +118,8 @@ function AdminSignUp() {
                         </Button>
                     </Form>
                 </div>
-            </BaseLayout>
         </>
     )
 }
 
-export default AdminSignUp
+export default ClientSignupForm

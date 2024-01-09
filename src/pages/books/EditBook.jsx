@@ -87,11 +87,15 @@ function EditBook() {
     const dispatch = useDispatch()
 
     const handleOnChange = (e) => {
+        
+
         const { name, value } = e.target;
+        console.log("On change",name, value);
         setFormData({
             ...formData,
             [name]: value
         })
+        console.log("On change",formData);
     }
 
     const handleOnSubmit = async (e) => {
