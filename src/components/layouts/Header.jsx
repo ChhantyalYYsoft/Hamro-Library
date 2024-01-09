@@ -28,7 +28,7 @@ function Header() {
         <Navbar.Brand href="/">
           <img
             className="logoImage"
-            src="/src/assets/imgs/Library-logo.png"
+            src="/src/assets/imgs/logo.png"
             alt="Logo"
           />{" "}
           Hamro Library
