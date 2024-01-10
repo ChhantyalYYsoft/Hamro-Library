@@ -18,16 +18,6 @@ function UserProfile() {
     setUserData(userInfo);
   }, [userInfo]);
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    console.log("On change", name, value);
-    // setFormData({
-    //     ...formData,
-    //     [name]: value
-    // })
-    //console.log("On change",formData);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const file = e.target[0]?.files[0];
@@ -83,17 +73,11 @@ function UserProfile() {
       () => {
         // Upload completed successfully, now we can get the download URL
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          // setUserData({
-          //   ...userData,
-          //   "url": "hello",
-          // });
-          // console.log("Hello:", userData);
-          // console.log("Hello 1:", userData);
-
-          //setImgUrl({ ["url"]:downloadURL, ...userInfo });
-          // const data = [ "url": downloadURL, ...userInfo ];
-          // setUserData(data);
+          // send updated url to update in the user table
           dispatch(updateProfileAction({ ...userData, url: downloadURL }));
+
+          // reset input file value
+          document.getElementById("fileInput").value = "";
         });
       }
     );
@@ -106,12 +90,7 @@ function UserProfile() {
           <Row>
             <form onSubmit={handleSubmit} className="form">
               <Col md={{ span: 3, offset: 3 }}>
-                <img
-                  className="profile-img1"
-                  src={userInfo.url}
-                  alt="Avatar"
-                  onChange={handleOnChange}
-                />
+                <img className="profile-img1" src={userInfo.url} alt="Avatar" />
                 {/* <br/>
                     <br/>
                     <Link to={""}>Edit Profile</Link> */}
@@ -121,7 +100,7 @@ function UserProfile() {
                 <br />
                 <p style={{ color: "blue" }}>Change Profile Picture ?</p>
 
-                <input type="file" />
+                <input type="file" id="fileInput" />
                 <button type="submit">Upload</button>
 
                 <br />

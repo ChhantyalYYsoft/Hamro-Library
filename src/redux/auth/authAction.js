@@ -29,9 +29,7 @@ export const updateProfileAction = ({ uid, ...rest }) => async (dispatch) => {
         await docPromise;
         toast.success("Successfully Updated")
         // Update our state
-        console.log("Before send")
         dispatch(getUserInfoAction(uid))
-        console.log("After send")
 
     } catch (e) {
         toast.error(e.message)
